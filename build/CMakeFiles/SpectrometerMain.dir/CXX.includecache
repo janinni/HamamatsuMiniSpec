@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/laborlinux/src/SpectrometerClass/Spectrometer.h
+vector
+-
+iostream
+-
+map
+-
+
+/home/laborlinux/src/SpectrometerClass/SpectrometerMain.cpp
+Spectrometer.h
+/home/laborlinux/src/SpectrometerClass/Spectrometer.h
+iostream
+-
+unistd.h
+-
+fstream
+-
+

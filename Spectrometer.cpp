@@ -1,3 +1,14 @@
+//	Class to communicate with the spectrometer 
+//
+//	created by Janine Müller on 30.07.2015
+//
+//	
+//
+//
+//
+//
+//
+
 #include "Spectrometer.h"
 #include <sys/stat.h>
 #include <dirent.h>
@@ -13,6 +24,117 @@
 
 using namespace std;
 using namespace boost;
+
+//Constructor
+Spectrometer::Spectrometer(){
+	
+	bool DevNotFound = true;
+
+	this->BasePath_ = "/sys/bus/usb/drivers/usbhspec/";
+	//cout << "fixed BasePath!" << endl;
+	//cout << this->BasePath_ << endl;
+	struct stat sb;
+
+	if (stat(this->BasePath_.c_str(), &sb) == -1) // if directory doesn't exist
+	{
+		cout << "No spectrometer found using the kernel module!" << endl;
+		exit(EXIT_FAILURE);
+	}
+	
+	this->Specs_=this->FindAllConnectedSpectrometers();
+	this->PrintSpecs();
+
+
+	if (this->SerialNumber_.empty())
+	{
+		this->SerialNumber_ = this->Specs_.begin()->first;
+		//cout << "Ser.Nr: " << SerialNumber_ << endl;
+		this->DeviceName_ = this->Specs_[SerialNumber_][0];
+		//cout << "DevName: " << DeviceName_ << endl;
+		stringstream path;
+		path << "/sys/bus/usb/drivers/usbhspec/" << this->Specs_[SerialNumber_][1];
+		this->BasePath_ = path.str();
+		//cout << "basePath: " << BasePath_ << endl;
+		DevNotFound=false;
+	}
+
+	if (DevNotFound)
+	{
+		cout << "Device not found! Exiting..." << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	stringstream path2;
+	// First calibration coefficient of the spectrometer. Pixel counting starts at 1!
+	path2 << this->BasePath_ << "/a0";
+	this->StartWaveLength_ = atof(ReadContentOfFile(path2.str()).c_str());
+
+	path2.str("");
+	// Second calibration coefficient.
+	path2 << this->BasePath_ << "/a1"; 
+	this->FirstKoeff_ = atof(ReadContentOfFile(path2.str()).c_str());
+	
+	path2.str("");
+	// Third calibration coefficient.
+	path2 << this->BasePath_ << "/a2"; 
+	this->SecondKoeff_ = atof(ReadContentOfFile(path2.str()).c_str());
+	
+	path2.str("");
+	// Fourth calibration coefficient.
+	path2 << this->BasePath_ << "/a3"; 
+	this->ThirdKoeff_ = atof(ReadContentOfFile(path2.str()).c_str());
+
+	path2.str("");
+	// Fifth calibration coefficient.
+	path2 << this->BasePath_ << "/a4"; 
+	this->FourthKoeff_ = atof(ReadContentOfFile(path2.str()).c_str());
+
+	path2.str("");
+	// Sixth calibration coefficient.
+	path2 << this->BasePath_ << "/a5"; 
+	this->FifthKoeff_ = atof(ReadContentOfFile(path2.str()).c_str());
+
+	path2.str("");
+
+
+	path2 << this->BasePath_ << "/sensor_name";
+	this->SensorName_ = ReadContentOfFile(path2.str());
+	//cout << "SensorName_: " << SensorName_ << endl;
+
+	path2.str("");
+
+	path2 << "/dev/" << this->DeviceName_;
+	this->DevicePath_ = path2.str();
+	//cout << "DevicePath_: " << DevicePath_ << endl;
+
+	this->PixelOffset_=0;
+
+	//S10420-1006/-1106 CCD image sensor see documentation (Device structure)
+	if (this->SensorName_ == "S10420-1106" || this->SensorName_ == "S10420-1006")
+	{
+		this->PixelOffset_ = 10;
+		printf("Sensor '%s' means pixel offset of %f. \n", this->SensorName_.c_str(), this->PixelOffset_);
+	}
+
+	//int found1 = this->SensorName_.find("S8377");
+	//int found2 = this->SensorName_.find("S8378");
+
+	if (this->SensorName_.find("S8377") != string::npos || this->SensorName_.find("S8378") != string::npos)
+	{
+		this->PixelOffset_ = 0;
+		printf("Sensor '%s' means pixel offset of %f. \n", this->SensorName_.c_str(), this->PixelOffset_);
+	}
+
+	// we need to get a spectrum before this->WLArr is filled!
+	// what the heck, we take a spectrum and get this over with!
+               
+    this->IntegrationTime_ = 0;
+    //cout << "IntegrationTime_: " << IntegrationTime_ << endl;
+    this->SetIntegrationTime(10000);
+    //cout << "IntegrationTime_: " << IntegrationTime_ << endl;
+    this->GetSpectrum();
+
+}
 
 //Constructor
 Spectrometer::Spectrometer(string SerialNumber){
@@ -36,7 +158,7 @@ Spectrometer::Spectrometer(string SerialNumber){
 
 	if (this->SerialNumber_.empty())
 	{
-		this->SerialNumber_ = this->Specs_.begin()->first;
+		this->SerialNumber_ = SerialNumber;
 		//cout << "Ser.Nr: " << SerialNumber_ << endl;
 		this->DeviceName_ = this->Specs_[SerialNumber_][0];
 		//cout << "DevName: " << DeviceName_ << endl;

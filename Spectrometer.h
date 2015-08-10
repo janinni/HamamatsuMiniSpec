@@ -1,8 +1,11 @@
+//	Class to communicate with the spectrometer 
 //
-//  Spectrometer.h
+//	Created by Janine Müller on 30.07.2015
+//
+//	
 //
 //
-//  Created by Janine Müller on 30.07.2015.
+//
 //
 //
 
@@ -17,7 +20,8 @@
 class Spectrometer{
 
 public:
-	Spectrometer(std::string SerialNumber=NULL); //Constructor
+	Spectrometer();
+	Spectrometer(std::string SerialNumber); //Constructor
 	~Spectrometer(); //Destructor
 	std::map<std::string, std::vector<std::string>> FindAllConnectedSpectrometers();
 	std::string ReadContentOfFile(std::string path);

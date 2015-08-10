@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++0x -pedantic -Wall -Wextra    CMakeFiles/SpectrometerMain.dir/SpectrometerMain.cpp.o CMakeFiles/SpectrometerMain.dir/Spectrometer.cpp.o  -o bin/SpectrometerMain -rdynamic -lboost_system -lboost_filesystem -lboost_regex 
