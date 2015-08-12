@@ -1,6 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/SpectrometerMain.dir/SpectrometerMain.cpp.o"
   "CMakeFiles/SpectrometerMain.dir/Spectrometer.cpp.o"
+  "CMakeFiles/SpectrometerMain.dir/SpecMeasurement.cpp.o"
   "bin/SpectrometerMain.pdb"
   "bin/SpectrometerMain"
 )

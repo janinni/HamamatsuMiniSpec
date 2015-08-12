@@ -4,6 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
+  "/home/laborlinux/src/SpectrometerClass/SpecMeasurement.cpp" "/home/laborlinux/src/SpectrometerClass/build/CMakeFiles/SpectrometerMain.dir/SpecMeasurement.cpp.o"
   "/home/laborlinux/src/SpectrometerClass/Spectrometer.cpp" "/home/laborlinux/src/SpectrometerClass/build/CMakeFiles/SpectrometerMain.dir/Spectrometer.cpp.o"
   "/home/laborlinux/src/SpectrometerClass/SpectrometerMain.cpp" "/home/laborlinux/src/SpectrometerClass/build/CMakeFiles/SpectrometerMain.dir/SpectrometerMain.cpp.o"
   )

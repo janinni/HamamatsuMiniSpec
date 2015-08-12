@@ -43,8 +43,6 @@ public:
 	std::vector<unsigned int> GetSpectrum(int TimeOut=0);
 	std::vector<unsigned int> ReadFromDev(int count);
 	std::vector<std::vector<std::string>> GetDeviceFileFromAddress(std::string DevClass, std::string Address);
-	std::vector<std::vector<double> > StartMeasurement(int IntTime, int NumberOfAverages=1);
-	std::vector<unsigned int> AddVector(std::vector<unsigned int> a, std::vector<unsigned int> b);
 
 private:
 

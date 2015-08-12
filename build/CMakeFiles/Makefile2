@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/laborlinux/src/SpectrometerClass/build
 CMakeFiles/SpectrometerMain.dir/all:
 	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/depend
 	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/laborlinux/src/SpectrometerClass/build/CMakeFiles  1 2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/laborlinux/src/SpectrometerClass/build/CMakeFiles  1 2 3
 	@echo "Built target SpectrometerMain"
 .PHONY : CMakeFiles/SpectrometerMain.dir/all
 
@@ -69,7 +69,7 @@ all: CMakeFiles/SpectrometerMain.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SpectrometerMain.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/laborlinux/src/SpectrometerClass/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/laborlinux/src/SpectrometerClass/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SpectrometerMain.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/laborlinux/src/SpectrometerClass/build/CMakeFiles 0
 .PHONY : CMakeFiles/SpectrometerMain.dir/rule

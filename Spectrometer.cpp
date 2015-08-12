@@ -351,7 +351,7 @@ vector<unsigned int> Spectrometer::GetSpectrum(int TimeOut){
     if (TimeOut == 0)
     {
     	TimeOut = this->IntegrationTime_ / 1000000.0 * 8.0; // 2.1 was artificailly selected. 
-    	//cout << "Timeout: " << TimeOut << endl;													// Keep in mind that that the aquisition of the catual spectrum may be with a higher integration time
+    	//cout << "Timeout: " << TimeOut << endl;		// Keep in mind that that the aquisition of the catual spectrum may be with a higher integration time
     }
 
     double StartT = time(0); // seconds since epoch
@@ -359,10 +359,17 @@ vector<unsigned int> Spectrometer::GetSpectrum(int TimeOut){
 
     int whatever, Index0to2, AmountOfActivePixels, StartIndex, EndIndex, AmountOfPixels, SpectrumIndex;
 
-    vector<unsigned int> ResArr = this->ReadFromDev(0x1040);
+    vector<unsigned int> ResArr;
     //cout << "After Read from Dev" << endl;
+ 
+    int Offset=0;
+    int counter =0;
 
     while (1) {
+
+    	//cout << "counter: " << counter++ << endl;
+
+    	ResArr = this->ReadFromDev(0x1040);
 
     	// Grab data from the interface
 
@@ -412,7 +419,7 @@ vector<unsigned int> Spectrometer::GetSpectrum(int TimeOut){
         // amountOfPixels is less than amountOfActivePixels, and
         // amountOfPixels = endIndex - startIndex
 
-        int Offset =0;
+        Offset = 0;
 
         if (whatever == 3)
         {
@@ -421,8 +428,15 @@ vector<unsigned int> Spectrometer::GetSpectrum(int TimeOut){
 
         }
 
-        if (!((whatever = 2) && (0 <= Index0to2) && !(Index0to2 <= 2) && ((AmountOfPixels = EndIndex - StartIndex || AmountOfPixels == EndIndex))))
+        if ((whatever == 2) && ((0 <= Index0to2) && (Index0to2 <= 2)) && (((AmountOfPixels == (EndIndex - StartIndex)) || (AmountOfPixels == EndIndex)))){
+
+        	break;
+        }
+
+        // Maybe change to second while loop again
+        /*if (!( (whatever == 2) && ((0 <= Index0to2) && (Index0to2 <= 2)) && (((AmountOfPixels == (EndIndex - StartIndex)) || (AmountOfPixels == EndIndex)))))
         {
+        	//cout << "start not found" << endl;
         	
         	while(Offset < ResArr.size()){
 
@@ -433,17 +447,19 @@ vector<unsigned int> Spectrometer::GetSpectrum(int TimeOut){
         			StartIndex = ResArr[Offset+3];
         			EndIndex = ResArr[Offset+4];
         			AmountOfPixels = ResArr[Offset+5];
-        			if ((0 <= Index0to2) && (Index0to2 <= 2) && ((AmountOfPixels == EndIndex - StartIndex) || (AmountOfPixels == EndIndex)))
+        			if (((0 <= Index0to2) && (Index0to2 <= 2)) && ((AmountOfPixels == EndIndex - StartIndex) || (AmountOfPixels == EndIndex)))
         			{
         				cout << "Offset = " << Offset << endl;
         				break;
         			}
 
         		}
-
+        		//cout << "Offset_while = " << Offset << endl;
         		Offset++;
 
         	}
+
+        	Offset = ResArr.size();
 
         }
 
@@ -452,7 +468,7 @@ vector<unsigned int> Spectrometer::GetSpectrum(int TimeOut){
         	this->ReadFromDev(Offset*2);
         }
 
-        else break;
+        else break;*/
 
     }
 
@@ -680,67 +696,3 @@ bool Spectrometer::SetIntegrationTime(int IntTime){
 	return true;
 
 }
-
-vector<vector<double> > Spectrometer::StartMeasurement(int IntTime, int NumberOfAverages){
-
-	if(IntTime != this->IntegrationTime_){
-		this->SetIntegrationTime(IntTime);
-	}
-
-	vector<unsigned int> data = this->GetSpectrum();
-
-	int i = 1;
-	while(i<NumberOfAverages){
-
-		data = AddVector(data, this->GetSpectrum());
-		i++;
-	}
-
-	for (unsigned int i = 0; i < data.size(); i++)
-		{
-			data[i]=data[i]/NumberOfAverages;
-		}	
-	
-	vector<vector<double> > Result;
-
-	if (data.empty())
-	{
-		return Result;
-	}
-
-	else{
-
-		vector<double> data_double(data.size(),0);
-
-		for (unsigned int j = 0; j < data.size(); j++)
-		{	
-			data_double[j]=(double)data[j];
-		}
-		Result[0] = WLArr_;
-		Result[1] = data_double;
-		return Result;
-
-	}
-
-}
-
-vector<unsigned int> Spectrometer::AddVector(vector<unsigned int> a, vector<unsigned int> b){
-
-	vector<unsigned int> result(a.size(), 0);
-
-	if (a.size() == b.size())
-	{
-		for (unsigned int i = 0; i < a.size(); i++)
-		{
-			result[i] = a[i] + b[i];
-		}
-
-		return result;
-	}
-
-	else return result;
-}
-
-
-
-

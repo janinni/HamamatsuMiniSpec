@@ -111,6 +111,30 @@ SpectrometerMain/fast:
 	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/build
 .PHONY : SpectrometerMain/fast
 
+SpecMeasurement.o: SpecMeasurement.cpp.o
+.PHONY : SpecMeasurement.o
+
+# target to build an object file
+SpecMeasurement.cpp.o:
+	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/SpecMeasurement.cpp.o
+.PHONY : SpecMeasurement.cpp.o
+
+SpecMeasurement.i: SpecMeasurement.cpp.i
+.PHONY : SpecMeasurement.i
+
+# target to preprocess a source file
+SpecMeasurement.cpp.i:
+	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/SpecMeasurement.cpp.i
+.PHONY : SpecMeasurement.cpp.i
+
+SpecMeasurement.s: SpecMeasurement.cpp.s
+.PHONY : SpecMeasurement.s
+
+# target to generate assembly for a file
+SpecMeasurement.cpp.s:
+	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/SpecMeasurement.cpp.s
+.PHONY : SpecMeasurement.cpp.s
+
 Spectrometer.o: Spectrometer.cpp.o
 .PHONY : Spectrometer.o
 
@@ -168,6 +192,9 @@ help:
 	@echo "... SpectrometerMain"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... SpecMeasurement.o"
+	@echo "... SpecMeasurement.i"
+	@echo "... SpecMeasurement.s"
 	@echo "... Spectrometer.o"
 	@echo "... Spectrometer.i"
 	@echo "... Spectrometer.s"
