@@ -7,6 +7,8 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/laborlinux/src/SpectrometerClass/SpecMeasurement.cpp" "/home/laborlinux/src/SpectrometerClass/build/CMakeFiles/SpectrometerMain.dir/SpecMeasurement.cpp.o"
   "/home/laborlinux/src/SpectrometerClass/Spectrometer.cpp" "/home/laborlinux/src/SpectrometerClass/build/CMakeFiles/SpectrometerMain.dir/Spectrometer.cpp.o"
   "/home/laborlinux/src/SpectrometerClass/SpectrometerMain.cpp" "/home/laborlinux/src/SpectrometerClass/build/CMakeFiles/SpectrometerMain.dir/SpectrometerMain.cpp.o"
+  "/home/laborlinux/src/LED/LED.cpp" "/home/laborlinux/src/SpectrometerClass/build/CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/LED/LED.cpp.o"
+  "/home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp" "/home/laborlinux/src/SpectrometerClass/build/CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

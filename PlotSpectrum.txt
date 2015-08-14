@@ -1,0 +1,13 @@
+cd '/home/laborlinux/Data/Spectrometer/'
+
+set term png size 1024,768
+set out "TestSpectrum.png"
+
+set xlabel "wavelength [nm]"
+set ylabel "counts"
+
+set xrange [350:700]
+
+plot "TestSpectrum.txt" using 1:2 title "data"
+
+set term wxt

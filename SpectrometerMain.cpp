@@ -6,11 +6,12 @@
 //
 //	Serialnumbers:
 //	New Spectrometer: 615CAA01
-//	Old Spectrometer: 
+//	Old Spectrometer: 114CAA01
 //
 
 #include "Spectrometer.h"
 #include "SpecMeasurement.h"
+#include "/home/laborlinux/src/LED/LED.h"
 #include <iostream>
 #include <unistd.h>
 #include <fstream>
@@ -24,14 +25,30 @@ int main()
 	
 	cout << "Spectrometers created!" << endl;
 
-	ham->SetIntegrationTime(10000);
+	int IntTime;
+	cout << "Which integration time you would like to use? (10000-10000000µs)" << endl;
+	cin >> IntTime;
+
+	int NumberOfAverages;
+	cout << "How many averages would you like to take?" << endl;
+	cin >> NumberOfAverages;
+
+	double current1;
+	cout << "Which currents you would like to use? (current1, current2, current3, in mA)" << endl;
+	cin >> current1;
+
+	ham->SetIntegrationTime(IntTime);
 	//ham2->Spectrometer::SetIntegrationTime(10000);
 
-	usleep(100000); //sleep 100ms = 0.1sec
+	LEDon(current1);
 
-	vector<vector<double> > Result = StartMeasurement(ham, 10000, 4);
+	sleep(2); //sleep 100ms = 0.1sec
 
-	SaveMeasurement(Result, "/home/laborlinux/Data/Spectrometer");
+	vector<vector<double> > Result = StartMeasurement(ham, IntTime, NumberOfAverages);
+
+	SaveMeasurement(Result, "/home/laborlinux/Data/Spectrometer/TestSpectrum.txt");
+
+	LEDoff();
 
 	return 0;	
 }	

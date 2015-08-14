@@ -6,7 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/laborlinux/src/SpectrometerClass/SpecMeasurement.cpp
+/home/laborlinux/src/LED/LED.h
+
+/home/laborlinux/src/SpectrometerClass/SpecMeasurement.h
 Spectrometer.h
 /home/laborlinux/src/SpectrometerClass/Spectrometer.h
 sstream
@@ -24,5 +26,19 @@ vector
 iostream
 -
 map
+-
+
+/home/laborlinux/src/SpectrometerClass/SpectrometerMain.cpp
+Spectrometer.h
+/home/laborlinux/src/SpectrometerClass/Spectrometer.h
+SpecMeasurement.h
+/home/laborlinux/src/SpectrometerClass/SpecMeasurement.h
+/home/laborlinux/src/LED/LED.h
+-
+iostream
+-
+unistd.h
+-
+fstream
 -
 

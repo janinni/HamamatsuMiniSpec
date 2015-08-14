@@ -183,6 +183,54 @@ SpectrometerMain.cpp.s:
 	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/SpectrometerMain.cpp.s
 .PHONY : SpectrometerMain.cpp.s
 
+home/laborlinux/src/LED/LED.o: home/laborlinux/src/LED/LED.cpp.o
+.PHONY : home/laborlinux/src/LED/LED.o
+
+# target to build an object file
+home/laborlinux/src/LED/LED.cpp.o:
+	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/LED/LED.cpp.o
+.PHONY : home/laborlinux/src/LED/LED.cpp.o
+
+home/laborlinux/src/LED/LED.i: home/laborlinux/src/LED/LED.cpp.i
+.PHONY : home/laborlinux/src/LED/LED.i
+
+# target to preprocess a source file
+home/laborlinux/src/LED/LED.cpp.i:
+	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/LED/LED.cpp.i
+.PHONY : home/laborlinux/src/LED/LED.cpp.i
+
+home/laborlinux/src/LED/LED.s: home/laborlinux/src/LED/LED.cpp.s
+.PHONY : home/laborlinux/src/LED/LED.s
+
+# target to generate assembly for a file
+home/laborlinux/src/LED/LED.cpp.s:
+	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/LED/LED.cpp.s
+.PHONY : home/laborlinux/src/LED/LED.cpp.s
+
+home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.o: home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.o
+.PHONY : home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.o
+
+# target to build an object file
+home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.o:
+	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.o
+.PHONY : home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.o
+
+home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.i: home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.i
+.PHONY : home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.i
+
+# target to preprocess a source file
+home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.i:
+	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.i
+.PHONY : home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.i
+
+home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.s: home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.s
+.PHONY : home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.s
+
+# target to generate assembly for a file
+home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.s:
+	$(MAKE) -f CMakeFiles/SpectrometerMain.dir/build.make CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.s
+.PHONY : home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -201,6 +249,12 @@ help:
 	@echo "... SpectrometerMain.o"
 	@echo "... SpectrometerMain.i"
 	@echo "... SpectrometerMain.s"
+	@echo "... home/laborlinux/src/LED/LED.o"
+	@echo "... home/laborlinux/src/LED/LED.i"
+	@echo "... home/laborlinux/src/LED/LED.s"
+	@echo "... home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.o"
+	@echo "... home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.i"
+	@echo "... home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.s"
 .PHONY : help
 
 

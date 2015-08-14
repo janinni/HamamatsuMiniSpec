@@ -7,7 +7,15 @@ CMakeFiles/SpectrometerMain.dir/SpecMeasurement.cpp.o: ../Spectrometer.h
 CMakeFiles/SpectrometerMain.dir/Spectrometer.cpp.o: ../Spectrometer.cpp
 CMakeFiles/SpectrometerMain.dir/Spectrometer.cpp.o: ../Spectrometer.h
 
+CMakeFiles/SpectrometerMain.dir/SpectrometerMain.cpp.o: /home/laborlinux/src/LED/LED.h
 CMakeFiles/SpectrometerMain.dir/SpectrometerMain.cpp.o: ../SpecMeasurement.h
 CMakeFiles/SpectrometerMain.dir/SpectrometerMain.cpp.o: ../Spectrometer.h
 CMakeFiles/SpectrometerMain.dir/SpectrometerMain.cpp.o: ../SpectrometerMain.cpp
+
+CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/LED/LED.cpp.o: /home/laborlinux/src/LED/LED.cpp
+CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/LED/LED.cpp.o: /home/laborlinux/src/LED/LED.h
+CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/LED/LED.cpp.o: /home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.h
+
+CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.o: /home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp
+CMakeFiles/SpectrometerMain.dir/home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.cpp.o: /home/laborlinux/src/XYTable/XYTable/SourceCode/RS232communication.h
 

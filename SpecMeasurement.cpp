@@ -40,7 +40,7 @@ vector<vector<double> > StartMeasurement(Spectrometer *ham, int IntTime, int Num
 		ham->SetIntegrationTime(IntTime);
 	}
 
-	cout << "IntegrationTime: " << ham->GetIntegrationTime() << endl;
+	//cout << "IntegrationTime: " << ham->GetIntegrationTime() << endl;
 
 	vector<unsigned int> data = ham->GetSpectrum();
 	/*for (unsigned int i = 0; i < data.size(); i++)
@@ -97,18 +97,28 @@ vector<vector<double> > StartMeasurement(Spectrometer *ham, int IntTime, int Num
 
 void SaveMeasurement(vector<vector<double> > Result, string path){
 
-	stringstream path2;
-	path2 << path << "/Spectrum.txt";
-
-	cout << path2.str() << endl;
-
 	ofstream f1;
 
-	f1.open(path2.str().c_str());
+	f1.open(path.c_str());
 
 	for (unsigned int i = 0; i < Result[0].size(); i++)
 	{
 		f1 << Result[0][i] << "\t" << Result[1][i] << endl;
+	}
+
+	f1.close();
+}
+
+void SaveMeasurementDL(vector<vector<double> > Result, vector<vector<double> > Result1, vector<vector<double> > Result2, vector<vector<double> > Result3, string path){
+
+	ofstream f1;
+
+	f1.open(path.c_str());
+
+	for (unsigned int i = 0; i < Result[0].size(); i++)
+	{
+		// 	  wavelength---------------dark count------light 1----------light 2---------light 3------ 
+		f1 << Result[0][i] << "\t" << Result[1][i] << "\t" << Result1[1][i] << "\t" << Result2[1][i] << "\t" << Result3[1][i] << endl;
 	}
 
 	f1.close();
