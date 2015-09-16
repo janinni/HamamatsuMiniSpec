@@ -34,15 +34,24 @@ int main()
 	cin >> NumberOfAverages;
 
 	double current1;
-	cout << "Which currents you would like to use? (current1, current2, current3, in mA)" << endl;
+	cout << "Which currents you would like to use? (current1, in mA)" << endl;
 	cin >> current1;
 
 	ham->SetIntegrationTime(IntTime);
 	//ham2->Spectrometer::SetIntegrationTime(10000);
 
-	LEDon(current1);
+	if (current1 == 0)
+	{
+		LEDoff();
+	}
 
-	sleep(2); //sleep 100ms = 0.1sec
+	else
+	{
+
+		LEDon(current1);
+	}
+
+	sleep(5); 
 
 	vector<vector<double> > Result = StartMeasurement(ham, IntTime, NumberOfAverages);
 

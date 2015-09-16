@@ -123,3 +123,18 @@ void SaveMeasurementDL(vector<vector<double> > Result, vector<vector<double> > R
 
 	f1.close();
 }
+
+void SaveMeasurementD1L(vector<vector<double> > Result, vector<vector<double> > Result1, string path){
+
+	ofstream f1;
+
+	f1.open(path.c_str());
+
+	for (unsigned int i = 0; i < Result[0].size(); i++)
+	{
+		// 	  wavelength---------------dark count------light 1----------light 2---------light 3------ 
+		f1 << Result[0][i] << "\t" << Result[1][i] << "\t" << Result1[1][i] << endl;
+	}
+
+	f1.close();
+}
