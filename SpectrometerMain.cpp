@@ -11,7 +11,7 @@
 
 #include "Spectrometer.h"
 #include "SpecMeasurement.h"
-#include "/home/laborlinux/src/LED/LED.h"
+#include "/home/xytable/src/LEDClass/LED.h"
 #include <iostream>
 #include <unistd.h>
 #include <fstream>

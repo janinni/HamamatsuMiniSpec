@@ -1,1 +1,0 @@
-/home/laborlinux/src/SpectrometerClass/build/CMakeFiles/SpectrometerMain.dir
