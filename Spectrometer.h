@@ -22,14 +22,14 @@ class Spectrometer{
 public:
 	Spectrometer();
 	Spectrometer(std::string SerialNumber); //Constructor
-	~Spectrometer(); //Destructor
-	std::map<std::string, std::vector<std::string>> FindAllConnectedSpectrometers();
+	virtual ~Spectrometer(); //Destructor
+	std::map<std::string, std::vector<std::string> > FindAllConnectedSpectrometers();
 	std::string ReadContentOfFile(std::string path);
 	std::string GetSerialNumber();
 	std::string GetDeviceName();
 	std::string GetBasePath();
 	std::string GetSensorName();
-	std::map<std::string, std::vector<std::string>> GetSpecs();
+	std::map<std::string, std::vector<std::string> > GetSpecs();
 	void PrintSpecs();
 	bool SetIntegrationTime(int IntTime);
 	int GetIntegrationTime();
@@ -42,14 +42,15 @@ public:
 	std::vector<double> GetWLArr();
 	std::vector<unsigned int> GetSpectrum(int TimeOut=0);
 	std::vector<unsigned int> ReadFromDev(int count);
-	std::vector<std::vector<std::string>> GetDeviceFileFromAddress(std::string DevClass, std::string Address);
+	std::vector<std::vector<std::string> > GetDeviceFileFromAddress(std::string DevClass, std::string Address);
 
+	void SpecError_handler(int sig); 
 private:
 
 	std::string SerialNumber_;
 	std::string DeviceName_;
 	std::string BasePath_;
-	std::map<std::string, std::vector<std::string>> Specs_;
+	std::map<std::string, std::vector<std::string> > Specs_;
 	float StartWaveLength_;
 	float FirstKoeff_;
 	float SecondKoeff_;

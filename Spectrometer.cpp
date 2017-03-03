@@ -57,7 +57,6 @@ Spectrometer::Spectrometer(){
 		//cout << "basePath: " << BasePath_ << endl;
 		DevNotFound=false;
 	}
-
 	if (DevNotFound)
 	{
 		cout << "Device not found! Exiting..." << endl;
