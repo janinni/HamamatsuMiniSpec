@@ -61,20 +61,14 @@ int main()
 	signal (SIGABRT, Error_handler); 	// If the program is shut down because of abnormal termination (?)
 	signal (SIGSEGV, Error_handler); 	// If the program is shut down because of segmentation violation (the usual reason)
 
-	Spectrometer ham;
+	Spectrometer *ham = new Spectrometer();
 	//Spectrometer* ham2 = new Spectrometer();
 	cout << "Spectrometers created!" << endl;
 
-	vector<double> wlarr = ham.GetWLArr();
-	for (unsigned int i = 0; i < wlarr.size(); i++)
-	{
-		cout << "wlarr: " << wlarr[i] << endl;
-	}
-
-	LED led;
+	LED *led = new LED();
 	cout << "LED created!" << endl;
 
-	SpecMeasurement SpecMeas;
+	SpecMeasurement *SpecMeas = new SpecMeasurement();
 
 	double current1, current2, current3;
 	
@@ -115,21 +109,21 @@ int main()
 	cin >> NumberOfAverages;
 
 
-	if(SpecMeas.SetNumbOfAv(NumberOfAverages) && ham.SetIntegrationTime(IntTime)){
+	if(SpecMeas->SetNumbOfAv(NumberOfAverages) && ham->SetIntegrationTime(IntTime)){
 		cout << "You have 5 seconds to switch off the light" << endl;
 		//sleep(5); 
 
 		if((input=='y') | (input=='Y')){
 
-			SpecMeas.Measurement3LWithDC(ham, led, current1, current2, current3, "/home/xytable/data/Spectrometer/TestSpectrum.txt");
+			SpecMeas->Measurement3LWithDC(ham, led, current1, current2, current3, "/home/xytable/data/Spectrometer/TestSpectrum.txt");
 			return 0;
 
 		}
 
 		else if((input=='n') | (input=='N')){
 
-			led.SetCurr(current1);
-			SpecMeas.SingleMeasurementWithDC(ham, led, "/home/xytable/data/Spectrometer/TestSpectrum.txt");
+			led->SetCurr(current1);
+			SpecMeas->SingleMeasurementWithDC(ham, led, "/home/xytable/data/Spectrometer/TestSpectrum.txt");
 			return 0;
 
 		}
