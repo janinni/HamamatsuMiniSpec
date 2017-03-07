@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(LEDGUI)
+project(SpectrometerGUI)
 set(PROJECT_VERSION 0.0.0.0)
 set(PROJECT_BRIEF "\"No description\"")
 
@@ -11,10 +11,16 @@ set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
 
 # Find the QtWidgets library
 find_package(Qt5Widgets)
+find_package(Qt5PrintSupport)
 
 if(Qt5Widgets_FOUND)
 	include_directories(${Qt5Widgets_INCLUDE_DIRS})
 	MESSAGE(${Qt5Widgets_INCLUDE_DIRS})
+endif()
+
+if(Qt5PrintSupport_FOUND)
+	include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
+	MESSAGE(${Qt5PrintSupport_INCLUDE_DIRS})
 endif()
 
 # Needed for QT
@@ -29,8 +35,6 @@ if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS}) 
 endif()
 
-# Find the QtWidgets library
-find_package(Qt5Widgets)
 
 if(${APPLE})
 
@@ -49,10 +53,18 @@ IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 add_library(LED ../../LEDClass/LED.cpp ../../RS232com/RS232communication.cpp)
+
 add_library(Spectrometer ../Spectrometer.cpp)
+target_link_libraries(Spectrometer ${Boost_LIBRARIES})
+
 add_library(SpecMeas ../SpecMeasurement/SpecMeasurement.cpp)
+
+add_library(QCustomPlot ../../../qcustomplot/qcustomplot.cpp)
+target_link_libraries(QCustomPlot ${Qt5PrintSupport_LIBRARIES})
+
 add_library(SpectrometerApp SpectrometerApp.cpp)
+target_link_libraries(SpectrometerApp Spectrometer SpecMeas LED ${Qt5Widgets_LIBRARIES} QCustomPlot)
 
 add_executable(SpectrometerGUI SpectrometerAppMain.cpp)
-target_link_libraries(SpectrometerGUI SpectrometerApp LED Spectrometer SpecMeas ${Qt5Widgets_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(SpectrometerGUI SpectrometerApp)
 

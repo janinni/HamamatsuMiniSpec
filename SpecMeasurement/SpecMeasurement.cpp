@@ -58,27 +58,27 @@ int SpecMeasurement::GetNumbOfAv(){
 	return this->_NumbOfAv;
 }
 
-vector<vector<double> > SpecMeasurement::SingleMeasurement(Spectrometer &ham){
+vector<vector<double> > SpecMeasurement::SingleMeasurement(Spectrometer *ham){
 
-	vector<unsigned int> data = ham.GetSpectrum();
-	// for (unsigned int i = 0; i < data.size(); i++)
-	// {
-	// 	cout << "data: " << data[i] << endl;
-	// }
+	vector<unsigned int> data = ham->GetSpectrum();
+	for (unsigned int i = 0; i < data.size(); i++)
+	{
+		//cout << "data: " << data[i] << endl;
+	}
 	int i = 1;
 	vector<unsigned int> help;
 	while(i <= this->_NumbOfAv){
 
-		help = ham.GetSpectrum();
+		help = ham->GetSpectrum();
 		//cout << "i: " << i << endl;
 		data = AddVector(data, help);
 		i++;
 	}
 
-	/*for (unsigned int i = 0; i < data.size(); i++)
-	{
-		cout << "after sum up data: " << data[i] << endl;
-	}*/
+	// for (unsigned int i = 0; i < data.size(); i++)
+	// {
+	// 	cout << "after sum up data: " << data[i] << endl;
+	// }
 
 	vector<double> data_double(data.size(),0);
 
@@ -91,7 +91,7 @@ vector<vector<double> > SpecMeasurement::SingleMeasurement(Spectrometer &ham){
 	for (unsigned int i = 0; i < data_double.size(); i++)
 		{
 			data_double[i]=data_double[i]/this->_NumbOfAv;
-			//cout << "data_double_avg: " << data_double[j] << endl;
+			//cout << "data_double_avg: " << data_double[i] << endl;
 		}	
 
 	vector<vector<double> > Result;
@@ -103,9 +103,15 @@ vector<vector<double> > SpecMeasurement::SingleMeasurement(Spectrometer &ham){
 	}
 
 	else{
-		
-		Result.push_back(ham.GetWLArr());
+		vector<double> Wlarr = ham->GetWLArr();
+		for(unsigned i =0; i<Wlarr.size(); i++){
+			cout << Wlarr[i] << endl;
+		}
+
+
+		Result.push_back(ham->GetWLArr());
 		Result.push_back(data_double);
+		//cout << "Data fetched" << endl;
 		return Result;
 
 	}
@@ -114,48 +120,50 @@ vector<vector<double> > SpecMeasurement::SingleMeasurement(Spectrometer &ham){
 
 }
 
-void SpecMeasurement::SingleMeasurementWithDC(Spectrometer &ham, LED &led, string path){
+void SpecMeasurement::SingleMeasurementWithDC(Spectrometer *ham, LED *led, string path){
 
 	// Dark Count Measurement
 	cout << "Dark Count Measuremnent ongoing..." << endl;
 	vector<vector<double> > ResultD = this->SingleMeasurement(ham);
 
-	if (led.GetCurr() == 0)
+	sleep(3);
+
+	if (led->GetCurr() == 0)
 	{
-		led.LEDoff();
+		led->LEDoff();
 	}
 
 	else
 	{
-		led.LEDon();
+		led->LEDon();
 	}
 
 	sleep(5); 
 
 	vector<vector<double> > ResultL = this->SingleMeasurement(ham);
 	
-	led.LEDoff();
+	led->LEDoff();
 
 	this->SaveMeasurementDCand1L(ResultD, ResultL, path);
 
 }
 
-void SpecMeasurement::Measurement3LWithDC(Spectrometer &ham, LED &led, double current1, double current2, double current3, string path){
+void SpecMeasurement::Measurement3LWithDC(Spectrometer *ham, LED *led, double current1, double current2, double current3, string path){
 
 	// Dark Count Measurement
 	cout << "Dark Count Measuremnent ongoing..." << endl;
 	vector<vector<double> > ResultD = this->SingleMeasurement(ham);
 
 	// 1st measurement
-	led.SetCurr(current1);
-	if (led.GetCurr() == 0)
+	led->SetCurr(current1);
+	if (led->GetCurr() == 0)
 	{
-		led.LEDoff();
+		led->LEDoff();
 	}
 
 	else
 	{
-		led.LEDon();
+		led->LEDon();
 	}
 
 	sleep(2); 
@@ -163,15 +171,15 @@ void SpecMeasurement::Measurement3LWithDC(Spectrometer &ham, LED &led, double cu
 	vector<vector<double> > ResultL1 = this->SingleMeasurement(ham);
 
 	// 2nd measurement
-	led.SetCurr(current2);
-	if (led.GetCurr() == 0)
+	led->SetCurr(current2);
+	if (led->GetCurr() == 0)
 	{
-		led.LEDoff();
+		led->LEDoff();
 	}
 
 	else
 	{
-		led.LEDon();
+		led->LEDon();
 	}
 
 	sleep(2); 
@@ -179,22 +187,22 @@ void SpecMeasurement::Measurement3LWithDC(Spectrometer &ham, LED &led, double cu
 	vector<vector<double> > ResultL2 = this->SingleMeasurement(ham);
 
 	// 3rd measurement
-	led.SetCurr(current3);
-	if (led.GetCurr() == 0)
+	led->SetCurr(current3);
+	if (led->GetCurr() == 0)
 	{
-		led.LEDoff();
+		led->LEDoff();
 	}
 
 	else
 	{
-		led.LEDon();
+		led->LEDon();
 	}
 
 	sleep(2); 
 
 	vector<vector<double> > ResultL3 = this->SingleMeasurement(ham);
 	
-	led.LEDoff();
+	led->LEDoff();
 
 	this->SaveMeasurementDCand3L(ResultD, ResultL1, ResultL2, ResultL3, path);
 
