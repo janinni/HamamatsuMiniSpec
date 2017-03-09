@@ -23,7 +23,7 @@ class Spectrometer_App : public QWidget {
 	public:
 		Spectrometer_App(QWidget *parent = 0);
 		virtual ~Spectrometer_App() {};
-		void SpecMeasChanged(QLineEdit *PathLineEdit, QComboBox *SpecMeasComboBox, QDoubleSpinBox *Current1SpinBox, QDoubleSpinBox *Current2SpinBox, QDoubleSpinBox *Current3SpinBox, QPushButton *Btn_Meas_on, QPushButton *Btn_Plot);
+		void SpecMeasChanged(QStackedWidget *MeasButton, QLineEdit *PathLineEdit, QComboBox *SpecMeasComboBox, QDoubleSpinBox *Current1SpinBox, QDoubleSpinBox *Current2SpinBox, QDoubleSpinBox *Current3SpinBox, QPushButton *Btn_Plot);
 		void ReloadPlot(QCustomPlot *Plot);
 
 	private:

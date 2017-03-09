@@ -13,6 +13,7 @@
 #include <QLineEdit>
 #include <QVector>
 #include <QPen>
+#include <QStackedWidget>
 
 #include <iostream>
 #include <functional>
@@ -111,6 +112,7 @@ Spectrometer_App::Spectrometer_App(QWidget *parent):
   NumbOfAvSpinBox->setValue(5);
   this->_SpecMeas->SetNumbOfAv(5);
 
+
   // Spin Box
   QObject::connect(NumbOfAvSpinBox, QOverload< int >::of(&QSpinBox::valueChanged), [=](double newValue) {
   this->_SpecMeas->SetNumbOfAv(newValue);
@@ -127,13 +129,45 @@ Spectrometer_App::Spectrometer_App(QWidget *parent):
   // Path
   QLabel *PathLabel = new QLabel(tr("Filename:"));
   QLineEdit *PathLineEdit = new QLineEdit;
-  //PathLineEdit->setPlaceholderText("Placeholder Text");
-  PathLineEdit->setText("../Test.txt");
+  PathLineEdit->setPlaceholderText("../Test.txt");
+  PathLineEdit->setEnabled( false );
 
 
-  // Spec Meas ON Button
-  QPushButton *Btn_Meas_on = new QPushButton("Start Measurement", this);
-  Btn_Meas_on->setEnabled(false);
+  // ************* Measurement Button ************* //
+  QPushButton *Button0 = new QPushButton("Start Measurement", this);
+  QPushButton *Button1 = new QPushButton("Start Measurement", this);
+  QPushButton *Button2 = new QPushButton("Start Measurement", this);
+  QPushButton *Button3 = new QPushButton("Start Measurement", this);
+
+  QSize buttonSize(200,20);
+  Button0->setFixedSize(buttonSize);
+  Button1->setFixedSize(buttonSize);
+  Button2->setFixedSize(buttonSize);
+  Button3->setFixedSize(buttonSize);
+
+  Button0->setEnabled( false );
+
+  QStackedWidget *MeasButton = new QStackedWidget();
+  MeasButton->addWidget(Button0);
+  MeasButton->addWidget(Button1);
+  MeasButton->addWidget(Button2);
+  MeasButton->addWidget(Button3);
+
+  MeasButton->setFixedSize(buttonSize);
+
+  connect(Button1, &QPushButton::clicked, [=]() {
+          this->_Led->LEDon();
+          this->_SpecData = this->_SpecMeas->SingleMeasurement(this->_Spec);
+          this->_Led->LEDoff();
+          });
+
+  connect(Button2, &QPushButton::clicked, [=]() {this->_SpecMeas->SingleMeasurementWithDC(this->_Spec, this->_Led, PathLineEdit->text().toStdString());  });
+
+  connect(Button3, &QPushButton::clicked, [=]() {this->_SpecMeas->Measurement3LWithDC(this->_Spec, this->_Led, Current1SpinBox->value(), Current2SpinBox->value(), Current3SpinBox->value(), PathLineEdit->text().toStdString());  
+  });
+  
+  // QPushButton *Btn_Meas_on = new QPushButton("Start Measurement", this);
+  // Btn_Meas_on->setEnabled(false);
 
 
   //************* Plot *************//
@@ -147,7 +181,8 @@ Spectrometer_App::Spectrometer_App(QWidget *parent):
   connect(Btn_Plot, &QPushButton::clicked, [=]() {this->ReloadPlot(Plot) ;});
 
   // Connect Measurement Types
-  connect( SpecMeasComboBox, QOverload< int >::of(&QComboBox::currentIndexChanged), [=]() {this->SpecMeasChanged(PathLineEdit, SpecMeasComboBox, Current1SpinBox, Current2SpinBox, Current3SpinBox, Btn_Meas_on, Btn_Plot);  });
+  connect( SpecMeasComboBox, QOverload< int >::of(&QComboBox::currentIndexChanged), [=]() {this->SpecMeasChanged(MeasButton, PathLineEdit, SpecMeasComboBox, Current1SpinBox, Current2SpinBox, Current3SpinBox, Btn_Plot);  });
+  //connect( SpecMeasComboBox, QOverload< int >::of(&QComboBox::currentIndexChanged), [=]() { QOverload< int >::of(&QStackedWidget::setCurrentIndex)  ;});
 
   // Spectrometer action Grid //
   QGridLayout *SpecLayout = new QGridLayout;
@@ -160,8 +195,8 @@ Spectrometer_App::Spectrometer_App(QWidget *parent):
   SpecLayout->addWidget(SpecMeasComboBox, 3, 0, 1, 2);
   SpecLayout->addWidget(PathLabel, 4, 0, 1, 2);
   SpecLayout->addWidget(PathLineEdit, 5, 0, 1, 2);
-  SpecLayout->addWidget(Btn_Meas_on, 6, 0);
-  SpecLayout->addWidget(Btn_Plot, 6, 1);
+  SpecLayout->addWidget(MeasButton, 6, 0, 1, 1);
+  SpecLayout->addWidget(Btn_Plot, 6, 1, 1, 1);
   SpecGroup->setLayout(SpecLayout);
 
   //************* QUIT *************//
@@ -185,10 +220,6 @@ void Spectrometer_App::ReloadPlot(QCustomPlot *Plot){
   this->_Spec_x = QVector<double>::fromStdVector(this->_SpecData[0]);
   this->_Spec_y = QVector<double>::fromStdVector(this->_SpecData[1]);
 
-  for (unsigned int i = 0; i <this->_Spec_y.size(); i++)
-	  {
-	  	cout << this->_Spec_y[i] << endl;
-	  }
 
   Plot->addGraph();
   // give the axes some labels:
@@ -196,7 +227,7 @@ void Spectrometer_App::ReloadPlot(QCustomPlot *Plot){
   Plot->yAxis->setLabel("counts");
   // set axes ranges, so we see all data:
   Plot->xAxis->setRange(350, 700);
-  Plot->yAxis->setRange(0, 60000);
+  //Plot->yAxis->setRange(0, 60000);
   Plot->graph()->setLineStyle(QCPGraph::LineStyle::lsLine);
   // create graph and assign data to it:
   Plot->graph()->setData(this->_Spec_x, this->_Spec_y);
@@ -206,32 +237,31 @@ void Spectrometer_App::ReloadPlot(QCustomPlot *Plot){
 }
 
 // Disabled Current Spin Boxes depending on Measurement Mode
-void Spectrometer_App::SpecMeasChanged(QLineEdit *PathLineEdit, QComboBox *SpecMeasComboBox, QDoubleSpinBox *Current1SpinBox, QDoubleSpinBox *Current2SpinBox, QDoubleSpinBox *Current3SpinBox, QPushButton *Btn_Meas_on, QPushButton *Btn_Plot) {
-    if( SpecMeasComboBox->currentText() == "Dark + 1 Light" ){ 
+void Spectrometer_App::SpecMeasChanged(QStackedWidget *MeasButton, QLineEdit *PathLineEdit, QComboBox *SpecMeasComboBox, QDoubleSpinBox *Current1SpinBox, QDoubleSpinBox *Current2SpinBox, QDoubleSpinBox *Current3SpinBox, QPushButton *Btn_Plot) {
+    if( SpecMeasComboBox->currentText() == "Single" ){ 
       Current1SpinBox->setEnabled( true );
       Current2SpinBox->setEnabled( false );
       Current3SpinBox->setEnabled( false );
 
-      Btn_Meas_on->setEnabled(true);
+      MeasButton->setCurrentIndex(1);
 
-      connect(Btn_Meas_on, &QPushButton::clicked, [=]() {this->_SpecMeas->SingleMeasurementWithDC(this->_Spec, this->_Led, PathLineEdit->text().toStdString());  });
-      //this->_SpecMeas->SingleMeasurementWithDC(this->_Spec, this->_Led, "/home/xytable/data/Spectrometer/TestSpectrum.txt");
+      Btn_Plot->setEnabled( true );
+
+      PathLineEdit->setEnabled( false );
+      
+
     }
 
-    else if( SpecMeasComboBox->currentText() == "Single" ){ 
-      Current1SpinBox->setEnabled( false );
+    else if( SpecMeasComboBox->currentText() == "Dark + 1 Light" ){ 
+      Current1SpinBox->setEnabled( true );
       Current2SpinBox->setEnabled( false );
       Current3SpinBox->setEnabled( false );
 
-      Btn_Meas_on->setEnabled(true);
+      MeasButton->setCurrentIndex(2);
 
-      Btn_Plot->setEnabled( true );
-      connect(Btn_Meas_on, &QPushButton::clicked, [=]() {
-        //this->_Led->LEDon();
-        //cout << this->_SpecMeas->GetNumbOfAv() << endl;
-        this->_SpecData = this->_SpecMeas->SingleMeasurement(this->_Spec);
-        //this->_Led->LEDoff();
-      });
+      PathLineEdit->setEnabled( true );
+
+      Btn_Plot->setEnabled(false);
 
     }
 
@@ -240,9 +270,11 @@ void Spectrometer_App::SpecMeasChanged(QLineEdit *PathLineEdit, QComboBox *SpecM
       Current2SpinBox->setEnabled( true );
       Current3SpinBox->setEnabled( true );
 
-      Btn_Meas_on->setEnabled(true);
+      MeasButton->setCurrentIndex(3);
 
-      connect(Btn_Meas_on, &QPushButton::clicked, [=]() {this->_SpecMeas->Measurement3LWithDC(this->_Spec, this->_Led, Current1SpinBox->value(), Current2SpinBox->value(), Current3SpinBox->value(), PathLineEdit->text().toStdString());  });
+      PathLineEdit->setEnabled( true );
+
+      Btn_Plot->setEnabled(false);
 
     }
     else{
