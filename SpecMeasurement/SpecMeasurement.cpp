@@ -103,10 +103,10 @@ vector<vector<double> > SpecMeasurement::SingleMeasurement(Spectrometer *ham){
 	}
 
 	else{
-		vector<double> Wlarr = ham->GetWLArr();
-		for(unsigned i =0; i<Wlarr.size(); i++){
-			cout << Wlarr[i] << endl;
-		}
+		// vector<double> Wlarr = ham->GetWLArr();
+		// for(unsigned i =0; i<Wlarr.size(); i++){
+		// 	cout << Wlarr[i] << endl;
+		// }
 
 
 		Result.push_back(ham->GetWLArr());
