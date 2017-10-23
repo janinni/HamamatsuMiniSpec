@@ -123,7 +123,7 @@ vector<vector<double> > SpecMeasurement::SingleMeasurement(Spectrometer *ham){
 void SpecMeasurement::SingleMeasurementWithDC(Spectrometer *ham, LED *led, string path){
 
 	// Dark Count Measurement
-	cout << "Dark Count Measuremnent ongoing..." << endl;
+	cout << "Dark Count Measurement ongoing..." << endl;
 	vector<vector<double> > ResultD = this->SingleMeasurement(ham);
 
 	sleep(3);
@@ -151,7 +151,7 @@ void SpecMeasurement::SingleMeasurementWithDC(Spectrometer *ham, LED *led, strin
 void SpecMeasurement::Measurement3LWithDC(Spectrometer *ham, LED *led, double current1, double current2, double current3, string path){
 
 	// Dark Count Measurement
-	cout << "Dark Count Measuremnent ongoing..." << endl;
+	cout << "Dark Count Measurement ongoing..." << endl;
 	vector<vector<double> > ResultD = this->SingleMeasurement(ham);
 
 	// 1st measurement
