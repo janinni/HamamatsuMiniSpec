@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.6)
 
-project(Spectrometer Class)
+project(SpectrometerClass)
 set(PROJECT_VERSION 0.0.0.0)
 set(PROJECT_BRIEF "\"No description\"")
+
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
