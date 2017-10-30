@@ -86,10 +86,10 @@ make
 ./bin/SpectrometerGUI
 ```
 
-3.) A window is opening to control the Spectrometer measurement.
+3.) A window is opening to control the Spectrometer measurement.  
 It is possible to choose between various `Measurement Modes`
 
-4.) Single Measurement:
+4.) Single Measurement:  
 Usually used to determine the current for a "real" meaurement
 * Choose a `Integration Time` of the Spectrometer
 * Choose the `Number of Averages` which per measurement will taken
@@ -98,7 +98,7 @@ Usually used to determine the current for a "real" meaurement
 * Hit the `Start Measurement` button to start actually the measurement
 * Afterwards the `Plot` button will be enabled to display the spectrum in the plot region
 
-5.) Dark + 1 Light Measurement:
+5.) Dark + 1 Light Measurement:  
 At each position take a darkcount and a light measurement with the given current.
 * Choose the Spectrometer Measurement Mode `Dark + 1 Light`
 * If wanted: Specify path and name for the saved file
@@ -108,7 +108,7 @@ At each position take a darkcount and a light measurement with the given current
 
 ![](img/Spectro1.png)
 
-6.) Dark + 3 Light Measurement:
+6.) Dark + 3 Light Measurement:  
 At each position take a darkcount and three light measurements with the given currents.
 * Choose the Spectrometer Measurement Mode `Dark + 1 Light`
 * If wanted: Specify path and name for the saved file
