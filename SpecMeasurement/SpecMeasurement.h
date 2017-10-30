@@ -40,6 +40,7 @@ class SpecMeasurement
 
 	private:
 		int _NumbOfAv = 5;
+		string _path = "/home/xytable/data/Spectrometer/Spectrum.txt";
 };
 
 

@@ -129,7 +129,7 @@ Spectrometer_App::Spectrometer_App(QWidget *parent):
   // Path
   QLabel *PathLabel = new QLabel(tr("Filename:"));
   QLineEdit *PathLineEdit = new QLineEdit;
-  PathLineEdit->setPlaceholderText("../Test.txt");
+  PathLineEdit->setPlaceholderText("/home/xytable/data/Spectrometer/Spectrum.txt");
   PathLineEdit->setEnabled( false );
 
 

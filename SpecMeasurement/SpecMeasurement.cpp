@@ -212,52 +212,101 @@ void SpecMeasurement::SaveSingleMeasurement(vector<vector<double> > Result, stri
 
 	ofstream f1;
 
-	f1.open(path.c_str());
-
-	f1 << "#lambda/nm" << "\t" << "C1" << endl;
-
-	for (unsigned int i = 0; i < Result[0].size(); i++)
-	{
-		f1 << Result[0][i] << "\t" << Result[1][i] << endl;
+	if (path == ""){
+		cout << "Use default path: " << this->_path << endl;
+		path = this->_path;
 	}
 
-	f1.close();
+	try{
+		f1.open(path.c_str());
+	}
+	catch (std::ofstream::failure &writeErr) {
+  	cout << "Exception opening/reading file" << endl;
+	}
+	
+	if(f1){
 
-	cout << "Data saved at " << path << endl;
+		f1 << "#lambda/nm" << "\t" << "C1" << endl;
+
+		for (unsigned int i = 0; i < Result[0].size(); i++)
+		{
+			f1 << Result[0][i] << "\t" << Result[1][i] << endl;
+		}
+
+		f1.close();
+
+		cout << "Data saved at " << path << endl;
+
+	}
+
+	else cout << "Exception opening/reading file" << endl;
+
 }
 
 void SpecMeasurement::SaveMeasurementDCand3L(vector<vector<double> > Result, vector<vector<double> > Result1, vector<vector<double> > Result2, vector<vector<double> > Result3, string path){
 
 	ofstream f1;
 
-	f1.open(path.c_str());
-
-	f1 << "#lambda/nm" << "\t" << "DC" << "\t" << "C1" << "\t" << "C2" << "\t" << "C3" << endl;
-
-	for (unsigned int i = 0; i < Result[0].size(); i++)
-	{
-		// 	  wavelength---------------dark count------light 1----------light 2---------light 3------ 
-		f1 << Result[0][i] << "\t" << Result[1][i] << "\t" << Result1[1][i] << "\t" << Result2[1][i] << "\t" << Result3[1][i] << endl;
+	if (path == ""){
+		cout << "Use default path: " << this->_path << endl;
+		path = this->_path;
 	}
 
-	f1.close();
-	cout << "Data saved at " << path << endl;
+	try{
+		f1.open(path.c_str());
+	}
+	catch (std::ofstream::failure &writeErr) {
+  	cout << "Exception opening/reading file" << endl;
+	}
+	
+	if(f1){
+
+		f1 << "#lambda/nm" << "\t" << "DC" << "\t" << "C1" << "\t" << "C2" << "\t" << "C3" << endl;
+
+		for (unsigned int i = 0; i < Result[0].size(); i++)
+		{
+			// 	  wavelength---------------dark count------light 1----------light 2---------light 3------ 
+			f1 << Result[0][i] << "\t" << Result[1][i] << "\t" << Result1[1][i] << "\t" << Result2[1][i] << "\t" << Result3[1][i] << endl;
+		}
+
+		f1.close();
+		cout << "Data saved at " << path << endl;
+
+	}
+
+	else cout << "Exception opening/reading file" << endl;
+	
 }
 
 void SpecMeasurement::SaveMeasurementDCand1L(vector<vector<double> > Result, vector<vector<double> > Result1, string path){
 
 	ofstream f1;
 
-	f1.open(path.c_str());
-
-	f1 << "#lambda/nm" << "\t" << "DC" << "\t" << "C1" << endl;
-
-	for (unsigned int i = 0; i < Result[0].size(); i++)
-	{
-		// 	  wavelength---------------dark count----------------light 1-----------
-		f1 << Result[0][i] << "\t" << Result[1][i] << "\t" << Result1[1][i] << endl;
+	if (path == ""){
+		cout << "Use default path: " << this->_path << endl;
+		path = this->_path;
 	}
 
-	f1.close();
-	cout << "Data saved at " << path << endl;
+	try{
+		f1.open(path.c_str());
+	}
+	catch (std::ofstream::failure &writeErr) {
+  	cout << "Exception opening/reading file" << endl;
+	}
+	
+	if(f1){
+
+		f1 << "#lambda/nm" << "\t" << "DC" << "\t" << "C1" << endl;
+
+		for (unsigned int i = 0; i < Result[0].size(); i++)
+		{
+			// 	  wavelength---------------dark count----------------light 1-----------
+			f1 << Result[0][i] << "\t" << Result[1][i] << "\t" << Result1[1][i] << endl;
+		}
+
+		f1.close();
+		cout << "Data saved at " << path << endl;
+	}
+
+	else cout << "Exception opening/reading file" << endl;
 }
