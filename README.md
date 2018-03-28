@@ -1,5 +1,5 @@
 # Control the Hamamatsu MiniSpectrometer
- Author: Janine Müller
+ Author: Janine Menne
 
  based on Code of https://sourceforge.net/p/usbspecdrivers/code/ci/master/tree/Hamamatsu/python/HamamatsuMiniSpectrometer.py
 
@@ -12,7 +12,7 @@ The repository contains the source code as well as CMakeLists and a GUI version 
 
 ## Requirements to run terminal program
 
-Availability of the following libraries (author: Janine Müller):
+Availability of the following libraries (author: Janine Menne):
 * [LEDClass][1]
 * [RSS232Communication][4]
 
@@ -119,5 +119,5 @@ At each position take a darkcount and three light measurements with the given cu
 ![](img/Spectro2.png)
 
 
-[1]: https://git.e5.physik.tu-dortmund.de/jmueller/LEDClass
-[4]: https://git.e5.physik.tu-dortmund.de/jmueller/RS232communication
+[1]: https://github.com/jamenne/LEDControl
+[4]: https://github.com/jamenne/RS232Communication
